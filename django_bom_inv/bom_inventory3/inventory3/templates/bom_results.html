@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .status {
+            color: #fff;
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .status.incomplete {
+            background-color: #f44336;
+        }
+
+        .status.complete {
+            background-color: #4CAF50;
+        }
+
+        .pcbs-status {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>BOM Results</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Component Name</th>
+                <th>Required Quantity for {{ pcb_count }} PCBs</th>
+                <th>Available Quantity</th>
+                <th>Is Sufficient?</th>
+                <th>Remaining Quantity</th>
+                <th>PCBs that Can Be Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.component_name }}</td>
+                    <td>{{ result.required_quantity }}</td>
+                    <td>{{ result.available_quantity }}</td>
+                    <td>{{ result.is_sufficient|yesno:"Yes,No" }}</td>
+                    <td>{{ result.remaining_quantity }}</td>
+                    <td>{{ result.pcbs_that_can_be_completed }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pcbs-status">
+        <h3>{{ pcbs_status }}</h3>
+    </div>
+
+</body>
+</html>
